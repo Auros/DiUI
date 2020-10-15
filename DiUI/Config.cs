@@ -22,34 +22,9 @@ namespace DiUI
             },
             new DiChild
             {
-                Name = "Online",
+                Name = "Exit",
                 Enabled = true,
-                Scale = new Vector2(1f, 0.95f),
-                Position = new Vector2(-35f, -28.5f),
-            },
-            new DiChild
-            {
-                Name = "Help",
-                Enabled = true,
-                Position = new Vector2(35f, -67.5f),
-            },
-            new DiChild
-            {
-                Name = "Editor",
-                Enabled = true,
-                Position = new Vector2(22.5f, -67.5f),
-            },
-            new DiChild
-            {
-                Name = "Campaign",
-                Enabled = true,
-                Position = new Vector2(-10f, -55f),
-            },
-            new DiChild
-            {
-                Name = "Options",
-                Enabled = true,
-                Position = new Vector2(-38.5f, -67.5f),
+                Position = new Vector2(47.5f, -67.5f),
             },
             new DiChild
             {
@@ -60,9 +35,34 @@ namespace DiUI
             },
             new DiChild
             {
-                Name = "Exit",
+                Name = "Options",
                 Enabled = true,
-                Position = new Vector2(47.5f, -67.5f),
+                Position = new Vector2(-38.5f, -67.5f),
+            },
+            new DiChild
+            {
+                Name = "Campaign",
+                Enabled = true,
+                Position = new Vector2(-10f, -55f),
+            },
+            new DiChild
+            {
+                Name = "Help",
+                Enabled = true,
+                Position = new Vector2(35f, -67.5f),
+            },
+            new DiChild
+            {
+                Name = "Online",
+                Enabled = true,
+                Scale = new Vector2(1f, 0.95f),
+                Position = new Vector2(-35f, -28.5f),
+            },
+            new DiChild
+            {
+                Name = "Editor",
+                Enabled = true,
+                Position = new Vector2(22.5f, -67.5f),
             },
         };
 
