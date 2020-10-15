@@ -56,7 +56,7 @@ namespace DiUI
                 Name = "Online",
                 Enabled = true,
                 Scale = new Vector2(1f, 0.95f),
-                Position = new Vector2(-35f, -28.5f),
+                Position = new Vector2(35f, -28.5f),
             },
             new DiChild
             {
