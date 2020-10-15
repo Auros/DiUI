@@ -1,4 +1,5 @@
-﻿using DiUI.Models;
+﻿using System;
+using DiUI.Models;
 using UnityEngine;
 using System.Collections.Generic;
 using IPA.Config.Stores.Attributes;
@@ -8,6 +9,8 @@ namespace DiUI
 {
     public class Config
     {
+        internal event Action<Config> Reloaded;
+
         [UseConverter(typeof(ListConverter<DiChild>))]
         public List<DiChild> Children { get; set; } = new List<DiChild>
         {
@@ -62,5 +65,10 @@ namespace DiUI
                 Position = new Vector2(47.5f, -67.5f),
             },
         };
+
+        public virtual void Changed()
+        {
+            Reloaded?.Invoke(this);
+        }
     }
 }

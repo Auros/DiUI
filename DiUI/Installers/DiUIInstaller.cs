@@ -1,4 +1,5 @@
 ﻿using Zenject;
+using DiUI.Managers;
 
 namespace DiUI.Installers
 {
@@ -11,6 +12,7 @@ namespace DiUI.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_config).AsSingle();
+            Container.BindInterfacesAndSelfTo<ButtonParenter>().AsSingle();
         }
     }
 }

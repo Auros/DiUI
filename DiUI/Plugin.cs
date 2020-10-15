@@ -1,5 +1,5 @@
-﻿using DiUI.Installers;
-using IPA;
+﻿using IPA;
+using DiUI.Installers;
 using IPA.Config.Stores;
 using SiraUtil.Zenject;
 using Conf = IPA.Config.Config;
@@ -16,8 +16,8 @@ namespace DiUI
         public Plugin(Conf conf, IPALogger logger, Zenjector zenjector)
         {
             Log = logger;
-            conf.Generated<Config>();
-            zenjector.OnMenu<DiUIInstaller>();
+            var config = conf.Generated<Config>();
+            zenjector.OnMenu<DiUIInstaller>().WithParameters(config);
         }
 
         [OnEnable, OnDisable]
