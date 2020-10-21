@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using DiUI.UI;
+using Zenject;
+using SiraUtil;
 using DiUI.Managers;
 
 namespace DiUI.Installers
@@ -12,7 +14,12 @@ namespace DiUI.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_config).AsSingle();
-            Container.BindInterfacesAndSelfTo<MainMenuParentee>().AsSingle();
+            Container.BindInterfacesTo<MenuButtonManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EditModeManager>().AsSingle();
+
+            Container.BindViewController<DiUIManagerView>();
+            Container.BindViewController<DiUIEditorController>();
+            Container.BindFlowCoordinator<DiUIFlowCoordinator>();
         }
     }
 }
