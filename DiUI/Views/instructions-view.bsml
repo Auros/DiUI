@@ -1,0 +1,15 @@
+﻿<vertical vertical-fit="PreferredSize" spacing="4" child-align="UpperCenter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+  <horizontal bg="panel-top-gradient" bg-color="#42DEEA" pref-width="100">
+    <text text="Help" align="Center" font-size="7" />
+  </horizontal>
+  <horizontal bg="round-rect-panel" bg-color="#000000BB" pad="4" spacing="4">
+    <vertical pref-width="70">
+      <text align="Center" text="Hold Down on a button and use the joystick/trackpad in order to move the button. On selecting a button, a panel on the right will appear where you can modify more properties of the button directly." />
+    </vertical>
+  </horizontal>
+  <horizontal>
+    <vertical>
+      <slider-setting text="Sensitivity" increment="0.5" min="0.5" max="10" apply-on-change="true" value="editor-sensitivity" />
+    </vertical>
+  </horizontal>
+</vertical>

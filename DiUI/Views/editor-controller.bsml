@@ -1,7 +1,11 @@
-﻿<vertical vertical-fit="PreferredSize" spacing="4" child-align="UpperCenter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+﻿<vertical vertical-fit="PreferredSize" spacing="2" child-align="LowerCenter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
   <horizontal bg ="round-rect-panel">
-    <button text="Cancel" on-click="exit-edit-mode" />
-    <button text="Reset" />
-    <button text="Apply" />
+    <button text="Undo" pref-width="35" on-click="undo" />
+    <button text="Redo" pref-width="35" on-click="redo" />
+  </horizontal>
+  <horizontal bg ="round-rect-panel">
+    <button text="Cancel" on-click="exit-edit-mode" pref-width="25" />
+    <button text="Reset" pref-width="25" />
+    <button text="Apply" pref-width="25" />
   </horizontal>
 </vertical>

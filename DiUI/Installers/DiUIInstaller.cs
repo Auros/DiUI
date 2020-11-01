@@ -5,7 +5,7 @@ using DiUI.Managers;
 
 namespace DiUI.Installers
 {
-    public class DiUIInstaller : Installer<Config, DiUIInstaller>
+    internal class DiUIInstaller : Installer<Config, DiUIInstaller>
     {
         private readonly Config _config;
 
@@ -14,11 +14,14 @@ namespace DiUI.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_config).AsSingle();
+            Container.Bind<MenuChildManager>().AsSingle();
             Container.BindInterfacesTo<MenuButtonManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<EditModeManager>().AsSingle();
 
+            Container.BindViewController<DiUIChildView>();
             Container.BindViewController<DiUIManagerView>();
             Container.BindViewController<DiUIEditorController>();
+            Container.BindViewController<DiUIInstructionsView>();
             Container.BindFlowCoordinator<DiUIFlowCoordinator>();
         }
     }

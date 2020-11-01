@@ -31,7 +31,7 @@ namespace DiUI.Managers
 
         public void Dispose()
         {
-            if (MenuButtons.IsSingletonAvailable)
+            if (BSMLParser.IsSingletonAvailable && MenuButtons.IsSingletonAvailable)
             {
                 MenuButtons.instance.UnregisterButton(_menuButton);
             }   

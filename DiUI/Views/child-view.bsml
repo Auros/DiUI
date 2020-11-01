@@ -1,0 +1,57 @@
+﻿<vertical child-align="UpperCenter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+  <horizontal>
+    <vertical>
+      <horizontal bg="panel-top-gradient" bg-color="#42DEEA" pref-width="100">
+        <text text="~editing-child-title" align="Center" font-size="7" />
+      </horizontal>
+      <horizontal pref-height="10">
+        <tab-selector tab-tag="child-settings" />
+      </horizontal>
+    </vertical>
+  </horizontal>
+  <horizontal pref-height="50"  vertical-fit="PreferredSize">
+    <vertical>
+      <tab tab-name="Image" tags="child-settings">
+        <horizontal>
+          <vertical bg="round-rect-panel" pad="2">
+            <text text="Images" underlined="true" align="Center" />
+            <bool-setting text="DROPDOWN IMAGE NORMAL" />
+            <bool-setting text="DROPDOWN IMAGE HOVERED" />
+          </vertical>
+        </horizontal>
+      </tab>
+      <tab tab-name="Button Position" tags="child-settings">
+        <horizontal pref-height="50">
+          <vertical bg="round-rect-panel" pad="2">
+            <text text="Button Transform" underlined="true" align="Center" />
+            <increment-setting get-event="get" text="Position X (Left/Right)" value="pos-x" increment="1" apply-on-change="true" />
+            <increment-setting get-event="get" text="Position Y (Up/Down)" value="pos-y" increment="1" apply-on-change="true" />
+            <increment-setting get-event="get" text="Rotation" value="rot" min="-180" increment="5" apply-on-change="true" />
+          </vertical>
+        </horizontal>
+      </tab>
+      <tab tab-name="Other" tags="child-settings">
+        <vertical>
+          <horizontal active="~text-options">
+            <vertical bg="round-rect-panel" pad="2">
+              <text text="Text Position" underlined="true" align="Center" />
+              <bool-setting get-event="get-text" text="Enabled" value="text-visible"  apply-on-change="true" />
+              <increment-setting get-event="get-text" text="X"  value="text-pos-x" apply-on-change="true" />
+              <increment-setting get-event="get-text" text="Y"  value="text-pos-y" apply-on-change="true" />
+            </vertical>
+          </horizontal>
+          <horizontal>
+            <vertical bg="round-rect-panel" pad="2">
+              <increment-setting get-event="get" text="Skew" value="skew" apply-on-change="true" increment="0.01" />
+              <bool-setting get-event="get" text="Show On Menu" value="show" apply-on-change="true" />
+            </vertical>
+          </horizontal>
+        </vertical>
+      </tab>
+    </vertical>
+  </horizontal>
+  <horizontal bg ="round-rect-panel">
+    <button text="Cancel" pref-width="45" />
+    <button text="Save" pref-width="45" />
+  </horizontal>
+</vertical>
