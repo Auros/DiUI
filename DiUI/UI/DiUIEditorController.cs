@@ -1,10 +1,12 @@
 ﻿using System;
 using Zenject;
 using UnityEngine;
+using DiUI.Models;
 using DiUI.Managers;
 using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
+using System.Linq;
 
 namespace DiUI.UI
 {
@@ -12,16 +14,22 @@ namespace DiUI.UI
     [HotReload(RelativePathToLayout = @"..\Views\editor-controller.bsml")]
     internal class DiUIEditorController : BSMLAutomaticViewController
     {
+        private Config _config;
         private EditModeManager _editModeManager;
+        private MenuChildManager _menuChildManager;
+        private MainMenuViewController _mainMenuViewController;
+        private readonly List<DiButton> _initialCachedButtonData = new List<DiButton>();
         private readonly Stack<MoveAction> _movementActionStack = new Stack<MoveAction>();
         private readonly Stack<MoveAction> _movementActionQueue = new Stack<MoveAction>();
-
         internal event Action ExitEditRequested;
 
         [Inject]
-        public void Construct(EditModeManager editModeManager)
+        public void Construct(Config config, EditModeManager editModeManager, MenuChildManager menuChildManager, MainMenuViewController mainMenuViewController)
         {
+            _config = config;
             _editModeManager = editModeManager;
+            _menuChildManager = menuChildManager;
+            _mainMenuViewController = mainMenuViewController;
         }
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
@@ -32,6 +40,9 @@ namespace DiUI.UI
             _movementActionStack.Clear();
             _movementActionQueue.Clear();
             _editModeManager.Enable();
+
+            _initialCachedButtonData.Clear();
+            _initialCachedButtonData.AddRange(_config.DiButtons.Copy());
         }
 
         private void Editor_ButtonGrabbed(GameObject button)
@@ -65,6 +76,7 @@ namespace DiUI.UI
         [UIAction("exit-edit-mode")]
         protected void ExitEditMode()
         {
+            Reset();
             ExitEditRequested?.Invoke();
         }
 
@@ -86,6 +98,23 @@ namespace DiUI.UI
                 _movementActionStack.Push(action);
                 action.subject.transform.localPosition = action.newLocalPosition;
             }
+        }
+
+        [UIAction("reset")]
+        protected void Reset()
+        {
+            _config.DiButtons = _initialCachedButtonData.ToList();
+            _initialCachedButtonData.Clear();
+            _menuChildManager.UpdateButtons(_mainMenuViewController.gameObject);
+        }
+
+        [UIAction("apply")]
+        protected void Apply()
+        {
+            _initialCachedButtonData.Clear();
+            _initialCachedButtonData.AddRange(_config.DiButtons.ToList());
+            _menuChildManager.UpdateButtons(_mainMenuViewController.gameObject, true);
+            ExitEditMode();
         }
 
         private class MoveAction

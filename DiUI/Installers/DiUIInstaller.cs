@@ -17,6 +17,7 @@ namespace DiUI.Installers
             Container.Bind<MenuChildManager>().AsSingle();
             Container.BindInterfacesTo<MenuButtonManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<EditModeManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MenuButtonCacher>().AsSingle();
 
             Container.BindViewController<DiUIChildView>();
             Container.BindViewController<DiUIManagerView>();

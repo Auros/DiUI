@@ -15,8 +15,8 @@
         <horizontal>
           <vertical bg="round-rect-panel" pad="2">
             <text text="Images" underlined="true" align="Center" />
-            <bool-setting text="DROPDOWN IMAGE NORMAL" />
-            <bool-setting text="DROPDOWN IMAGE HOVERED" />
+            <dropdown-list-setting get-event="get" text="Normal Image" options="sprite-list" bind-value="true" value="normal-image" apply-on-change="true" />
+            <dropdown-list-setting get-event="get" text="Hover Image" options="sprite-list" bind-value="true" value="selected-image" apply-on-change="true" />
           </vertical>
         </horizontal>
       </tab>

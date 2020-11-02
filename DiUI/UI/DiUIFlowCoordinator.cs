@@ -22,7 +22,6 @@ namespace DiUI.UI
         private MainMenuViewController _mainMenuViewController;
 
         private readonly List<DiButton> _initialCachedButtonData = new List<DiButton>();
-        //private readonly List<DiButton> _initialCachedButtonData = new List<DiButton>();
 
         [Inject]
         public void Construct(DiUIChildView childView, DiUIManagerView managerView, EditModeManager editModeManager, DiUIEditorController editorController, DiUIInstructionsView instructionsView, MainFlowCoordinator mainFlowCoordinator, MainMenuViewController mainMenuViewController)
@@ -44,9 +43,15 @@ namespace DiUI.UI
                 ProvideInitialViewControllers(_managerView);
             }
             _mainScreen = _mainMenuViewController.screen;
-            _managerView.EditModeRequested += ActivateEditMode;
             _editorController.ExitEditRequested += DeactivateEditMode;
+            _editModeManager.ButtonReleased += ButtonWasReleased;
+            _managerView.EditModeRequested += ActivateEditMode;
             _editModeManager.ButtonGrabbed += ButtonWasGrabbed;
+        }
+
+        private void ButtonWasReleased(GameObject button)
+        {
+            _childView.ShowSettingsForButton(button);
         }
 
         private void ButtonWasGrabbed(GameObject button)
@@ -76,11 +81,17 @@ namespace DiUI.UI
             SetLeftScreenViewController(_instructionsView, ViewController.AnimationType.In);
         }
 
-        protected override void BackButtonWasPressed(ViewController topViewController)
+        protected override void DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling)
         {
             _editorController.ExitEditRequested -= DeactivateEditMode;
+            _editModeManager.ButtonReleased -= ButtonWasReleased;
             _managerView.EditModeRequested -= ActivateEditMode;
+            _editModeManager.ButtonGrabbed -= ButtonWasGrabbed;
+            base.DidDeactivate(removedFromHierarchy, screenSystemDisabling);
+        }
 
+        protected override void BackButtonWasPressed(ViewController topViewController)
+        {
             base.BackButtonWasPressed(topViewController);
             
             _mainFlowCoordinator.DismissFlowCoordinator(this, RepairMainMenu, animationDirection: ViewController.AnimationDirection.Vertical);

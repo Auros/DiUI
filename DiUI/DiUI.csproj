@@ -49,6 +49,11 @@
       <HintPath>$(BeatSaberDir)\Plugins\BSML.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="MediaLoader, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\MediaLoader.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Polyglot, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Polyglot.dll</HintPath>
@@ -134,6 +139,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Installers\DiUIInstaller.cs" />
     <Compile Include="Managers\EditModeManager.cs" />
+    <Compile Include="Managers\MenuButtonCacher.cs" />
     <Compile Include="Managers\MenuButtonManager.cs" />
     <Compile Include="Managers\MenuChildManager.cs" />
     <Compile Include="Models\DiButton.cs" />
@@ -144,6 +150,7 @@
     <Compile Include="UI\DiUIInstructionsView.cs" />
     <Compile Include="UI\DiUIEditorController.cs" />
     <Compile Include="UI\DiUIManagerView.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />

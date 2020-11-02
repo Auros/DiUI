@@ -3,6 +3,8 @@ using TMPro;
 using DiUI.Models;
 using System.Linq;
 using UnityEngine;
+using IPA.Utilities;
+using System.Collections.Generic;
 
 namespace DiUI.Managers
 {
@@ -15,39 +17,79 @@ namespace DiUI.Managers
             _config = config;
         }
 
-        internal DiButton GetButton(string source, string name, GameObject gameObject)
+        internal DiButton GetButton(string source, string name, GameObject gameObject, bool forceReload = false)
         {
             var button = _config.DiButtons.FirstOrDefault(x => x.Source == source && x.Name == name);
-            if (button == null)
+            if (forceReload || button == null)
             {
-                button = new DiButton
+                if (!forceReload)
                 {
-                    Name = name,
-                    Source = source,
-                    NormalImage = "Default",
-                    SelectedImage = "Default",
-                };
+                    button = new DiButton
+                    {
+                        Name = name,
+                        Source = source,
+                        NormalImage = "Default",
+                        SelectedImage = "Default",
+                    };
+                }
                 if (gameObject != null)
                 {
-                    button.Rotation = (int)gameObject.transform.localRotation.eulerAngles.z;
-                    button.Position = gameObject.transform.localPosition;
-                    
-                    var text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+                    var mainButton = gameObject.GetComponentsInChildren<NoTransitionsButton>().FirstOrDefault(x => x.gameObject.name == name);
+                    if (mainButton != null)
+                    {
+                        button.Rotation = (int)mainButton.transform.localRotation.eulerAngles.z;
+                        button.Position = mainButton.transform.localPosition;
+
+                        Plugin.Log.Info(name);
+                        Plugin.Log.Info(mainButton.transform.localPosition.ToString());
+
+                        var text = mainButton.GetComponentInChildren<TextMeshProUGUI>();
+                        if (text != null)
+                        {
+                            button.HasText = true;
+                            button.ShowText = text.isActiveAndEnabled;
+                            button.TextPosition = text.gameObject.transform.localPosition;
+                        }
+                        var image = mainButton.GetComponentInChildren<ImageView>();
+                        if (image != null)
+                        {
+                            button.Skew = image.skew;
+                        }
+                    }
+                }
+                _config.DiButtons.Add(button);
+            }
+            return button;
+        }
+
+        internal void UpdateButtons(GameObject source, bool forceReload = false)
+        {
+            var diButtons = new List<DiButton>();
+            var buttons = source.GetComponentsInChildren<NoTransitionsButton>();
+            foreach (var button in buttons)
+            {
+                if (button != null)
+                {
+                    var diButton = GetButton(source.name, button.gameObject.name, source, forceReload);
+                    diButtons.Add(diButton);
+
+                    button.transform.localPosition = diButton.Position;
+                    button.transform.localRotation = Quaternion.Euler(button.transform.localRotation.eulerAngles.x, button.transform.localRotation.eulerAngles.y, diButton.Rotation);
+                    var text = button.GetComponentInChildren<TextMeshProUGUI>();
                     if (text != null)
                     {
-                        button.HasText = true;
-                        button.ShowText = text.isActiveAndEnabled;
-                        button.TextPosition = text.gameObject.transform.localPosition;
+                        text.transform.localPosition = diButton.TextPosition;
+                        text.gameObject.SetActive(diButton.ShowText);
                     }
-                    var image = gameObject.GetComponentInChildren<ImageView>();
+                    var image = button.GetComponentInChildren<ImageView>();
                     if (image != null)
                     {
-                        button.Skew = image.skew;
+                        image.SetField("_skew", diButton.Skew);
+                        image.SetVerticesDirty();
                     }
                 }
             }
-            _config.DiButtons.Add(button);
-            return button;
-        } 
+            _config.Changed();
+        }
     }
 }
